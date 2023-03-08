@@ -82,12 +82,13 @@ class Hotel(Resource):
         return hotel
     
     def delete(self, hotel_id):
-        hotel = self.find_hotel_by_id(self)
-        
+        hotel = self.find_hotel_by_id(hotel_id)
+        print(hotel)
         if hotel is None:
             return {'message': 'Not found'}, 404
         
-        global hoteis
-        hoteis = [hotel for hotel in hoteis if hotel['hotel_id'] is not hotel_id]
+        index = next((index for (index, hotel) in enumerate(hoteis) if hotel['hotel_id'] == hotel_id), None)
+        hotel = hoteis[index]
+        hoteis.remove(hotel)
         return {'message': 'Hotel {} was deleted'.format(hotel_id)}, 200
         
