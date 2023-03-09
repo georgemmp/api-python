@@ -80,7 +80,7 @@ class Hotel(Resource):
     
     def delete(self, hotel_id):
         hotel = self.find_hotel_by_id(hotel_id)
-        print(hotel)
+        
         if hotel is None:
             return {'message': 'Not found'}, 404
         
