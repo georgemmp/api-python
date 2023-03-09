@@ -1,3 +1,4 @@
+'''
 from flask_restful import Resource, reqparse
 from models.hotel import HotelModel
 
@@ -88,4 +89,4 @@ class Hotel(Resource):
         hotel = hoteis[index]
         hoteis.remove(hotel)
         return {'message': 'Hotel {} was deleted'.format(hotel_id)}, 200
-        
+'''    

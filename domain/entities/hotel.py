@@ -1,6 +1,6 @@
-from sql_alchemy import database
+from infrastructure.database.sql_alchemy import database
 
-class HotelModel(database.Model):
+class Hotel(database.Model):
     
     __tablename__ = 'hotel'
     
@@ -17,7 +17,7 @@ class HotelModel(database.Model):
         self.diaria = diaria
         self.cidade = cidade
         
-    def json(self):
+    def json(self) -> dict:
         return {
             'hotel_id': self.hotel_id,
             'nome': self.nome,

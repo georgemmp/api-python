@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_restful import Api
-from resources.hotel import Hotel, Hoteis
+from infrastructure.api.routes.hotel_routes import create_hotel_routes
+from infrastructure.database.sql_alchemy import database
+from infrastructure.api.exceptions.error_handler import handle_exception
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoteis.db'
@@ -11,10 +13,8 @@ api = Api(app)
 def create_database():
     database.create_all()
 
-api.add_resource(Hoteis, '/hotel/')
-api.add_resource(Hotel, '/hotel/<int:hotel_id>/')
+create_hotel_routes(api)
 
 if __name__ == '__main__':
-    from sql_alchemy import database
     database.init_app(app)
     app.run(debug=True, port=8080)
