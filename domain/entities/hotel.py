@@ -11,7 +11,7 @@ class Hotel(database.Model, Serializer):
     diaria = database.Column(database.Float(precision=2))
     cidade = database.Column(database.String(100))
     
-    def __init__(self, hotel_id, nome, estrelas, diaria, cidade) -> None:
+    def __init__(self, hotel_id: int, nome: str, estrelas: float, diaria: float, cidade: str) -> None:
         self.hotel_id = hotel_id
         self.nome = nome
         self.estrelas = estrelas
@@ -19,7 +19,7 @@ class Hotel(database.Model, Serializer):
         self.cidade = cidade
         
     @classmethod
-    def ommit_id(cls, nome, estrelas, diaria, cidade):
+    def ommit_id(cls, nome: str, estrelas: float, diaria: float, cidade: str):
         return cls(
             hotel_id=None,
             nome=nome,

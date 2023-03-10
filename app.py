@@ -3,10 +3,11 @@ from flask_restful import Api
 from infrastructure.database.sql_alchemy import database
 from infrastructure.api.exceptions.error_handler import handle_exception
 from infrastructure.api.routes.hotel_routes import create_hotel_routes
+from infrastructure.config.db_config import sqlite_db
 
 app = Flask(__name__)
 app.register_error_handler(Exception, handle_exception)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoteis.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_db['database']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app, errors=handle_exception)
 

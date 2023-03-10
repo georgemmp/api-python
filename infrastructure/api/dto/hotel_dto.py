@@ -7,7 +7,7 @@ class HotelDTO:
     args.add_argument('diaria')
     args.add_argument('cidade')
     
-    def __init__(self, nome, estrelas, diaria, cidade) -> None:
+    def __init__(self, nome: str, estrelas: float, diaria: float, cidade: str) -> None:
         self.nome = nome
         self.estrelas = estrelas
         self.diaria = diaria
