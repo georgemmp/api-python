@@ -1,0 +1,1 @@
+sqlite_db = {'database': 'sqlite:///hoteis.db'}

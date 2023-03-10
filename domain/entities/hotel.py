@@ -1,6 +1,7 @@
 from infrastructure.database.sql_alchemy import database
+from domain.utils.serializer import Serializer
 
-class Hotel(database.Model):
+class Hotel(database.Model, Serializer):
     
     __tablename__ = 'hotel'
     
@@ -17,11 +18,12 @@ class Hotel(database.Model):
         self.diaria = diaria
         self.cidade = cidade
         
-    def json(self) -> dict:
-        return {
-            'hotel_id': self.hotel_id,
-            'nome': self.nome,
-            'estrelas': self.estrelas,
-            'diaria': self.diaria,
-            'cidade': self.cidade
-        }
+    @classmethod
+    def ommit_id(cls, nome, estrelas, diaria, cidade):
+        return cls(
+            hotel_id=None,
+            nome=nome,
+            estrelas=estrelas,
+            diaria=diaria,
+            cidade=cidade
+        )
