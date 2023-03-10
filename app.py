@@ -3,6 +3,7 @@ from flask_restful import Api
 from infrastructure.database.sql_alchemy import database
 from infrastructure.api.exceptions.error_handler import handle_exception
 from infrastructure.api.routes.hotel_routes import create_hotel_routes
+from infrastructure.api.routes.user_routes import create_user_routes
 from infrastructure.config.db_config import sqlite_db
 
 app = Flask(__name__)
@@ -16,6 +17,7 @@ def create_database():
     database.create_all()
 
 create_hotel_routes(api)
+create_user_routes(api)
 
 if __name__ == '__main__':
     database.init_app(app)
