@@ -1,15 +1,25 @@
-from flask import json
+from flask import json, Flask, Blueprint
 from werkzeug.exceptions import HTTPException
 
-def handle_exception(exception: HTTPException):
-    """Return JSON instead of HTML for HTTP errors."""
-    # start with the correct headers and status code from the error
-    response = exception.get_response()
-    # replace the body with JSON
+# errors = Blueprint('errors', __name__)
+app = Flask(__name__)
+
+@app.errorhandler(Exception)
+def handle_exception(error):
+    response = error.get_response()
+    
     response.data = json.dumps({
-        "code": exception.code,
-        "name": exception.name,
-        "description": exception.description,
+        "code": error.code,
+        "name": error.name,
+        "description": error.description,
     })
-    response.content_type = "application/json"
-    return response
+    
+    if isinstance(error, HTTPException):
+        response.content_type = "application/json"
+        return response
+    
+    return json.dumps({
+        "name": "Internal Server Error",
+        "description": "An unexpected error happened",
+        "error": str(error)
+    }), 500

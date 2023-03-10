@@ -1,13 +1,14 @@
 from flask import Flask
 from flask_restful import Api
-from infrastructure.api.routes.hotel_routes import create_hotel_routes
 from infrastructure.database.sql_alchemy import database
 from infrastructure.api.exceptions.error_handler import handle_exception
+from infrastructure.api.routes.hotel_routes import create_hotel_routes
 
 app = Flask(__name__)
+app.register_error_handler(Exception, handle_exception)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hoteis.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-api = Api(app)
+api = Api(app, errors=handle_exception)
 
 @app.before_first_request
 def create_database():
