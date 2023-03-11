@@ -2,7 +2,7 @@ import bcrypt
 from domain.entities.user import User
 from infrastructure.database.sql_alchemy import database
 
-def create_user(user: User) -> User:
+def create_user(user: User) -> any:
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(user.password.encode('utf-8'), salt)
     
