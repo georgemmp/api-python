@@ -1,12 +1,10 @@
 from flask_restful import Api
-from flask_jwt_extended import JWTManager
 from .hotel_routes import create_hotel_routes
 from .user_routes import create_user_routes
 from infrastructure.api.exceptions.error_handler import handle_exception
-    
+
 def routes(app):
     api = Api(app, errors=handle_exception)
-    jwt = JWTManager(app)
     
     create_hotel_routes(api)
     create_user_routes(api)
