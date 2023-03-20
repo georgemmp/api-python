@@ -4,14 +4,14 @@ from domain.entities.hotel import Hotel
 
 def __create_query(filters: dict) -> list:
     query = Hotel.query
-    filter = __create_filters(filters, query)
+    filter = __create_filters(filters)
     
     for key in filters.keys():
         query = query.filter(filter[key])
     
     return Hotel.serialize_list(query.all())
 
-def __create_filters(filters: dict, query):
+def __create_filters(filters: dict):
     return {
         'cidade': Hotel.cidade.like(filters.get('cidade')) if filters.get('cidade') else None,
         'estrelas_min': Hotel.estrelas >= filters.get('estrelas_min') if filters.get('estrelas_min') else None,
