@@ -4,11 +4,14 @@ from application.use_cases.hotel.create_hotel_use_case import create_hotel
 from application.use_cases.hotel.update_hotel_use_case import update_hotel
 from application.use_cases.hotel.delete_hotel_use_case import delete_hotel
 from domain.entities.hotel import Hotel
-from infrastructure.api.dto.hotel_dto import HotelDTO
+from ..dto.hotel_dto import HotelDTO
+from ..dto.hotel_dto import HotelFilterDTO
 
 class HotelController(Resource):
     def get(self) -> list:
-        return get_hotels(), 200
+        filters = HotelFilterDTO.create_dto()
+        
+        return get_hotels(filters), 200
     
     def post(self) -> Hotel:
         dto = HotelDTO.create_dto()
